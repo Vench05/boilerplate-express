@@ -1,7 +1,7 @@
+const bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 require('dotenv').config();
-
 
 
 // middleware
@@ -10,6 +10,7 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.path} - ${req.ip}`);
     next()
 })
+app.use(bodyParser.urlencoded({extended: false}))
 
 
 app.get('/', (req, res) => {
@@ -46,7 +47,7 @@ app.route('/name')
         res.send({ "name": `${req.query.first} ${req.query.last}`})
     })
     .post((req, res) => {
-        res.send({ "name": `${req.query.first} ${req.query.last}`})
+        res.send({ "name": `${req.body.first} ${req.body.last}`})
     })
 
 
